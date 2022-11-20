@@ -12,11 +12,12 @@ const events = {
       game.player.moveRight();
     },
   },
-  w: {
-    keydown: () => {
-      game.background.update();
-    },
-  },
+  // w: {
+  //   keydown: () => {
+  //     console.log(game.detectCollisions());
+  //     game.background.update();
+  //   },
+  // },
 };
 document.addEventListener("keydown", function (event) {
   if (events[event.key]) {
