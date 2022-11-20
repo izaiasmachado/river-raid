@@ -22,15 +22,57 @@ function Game() {
     this.element.appendChild(this.background.element);
   };
 
+  this.detectCollisions = function () {
+    const playerElement = this.player.element;
+    const playerRect = playerElement.getBoundingClientRect();
+
+    const playerLeft = playerRect.left;
+    const playerRight = playerRect.right;
+    const playerTop = playerRect.top;
+    const playerBottom = playerRect.bottom;
+
+    const cells =
+      this.background.levels[0].element.getElementsByClassName("wall");
+
+    const collided = [];
+
+    for (let i = 0; i < cells.length; i++) {
+      const cell = cells[i];
+      const rect = cell.getBoundingClientRect();
+
+      const cellLeft = rect.left;
+      const cellRight = rect.right;
+      const cellTop = rect.top;
+      const cellBottom = rect.bottom;
+
+      isColliding =
+        playerLeft < cellRight &&
+        playerRight > cellLeft &&
+        playerTop < cellBottom &&
+        playerBottom > cellTop;
+
+      if (isColliding) {
+        collided.push(cell);
+        cell.classList.add("blink");
+      }
+    }
+
+    return collided.length > 0;
+  };
+
   this.setBackground();
   this.addPlayer();
 
   const levelStyles = new LevelStyles();
   this.background.addLevel(new Level(levelStyles.center));
 
-  setInterval(() => {
+  const interval = setInterval(() => {
     this.background.update();
-  }, 200);
+    if (this.detectCollisions()) {
+      interval && clearInterval(interval);
+      console.log("collision");
+    }
+  }, 300);
 }
 
 function nextCoordinate(player, background, move) {
