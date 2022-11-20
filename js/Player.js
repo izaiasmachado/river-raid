@@ -9,7 +9,7 @@ function Player(x = 0, y = 0) {
   element.style.left = x + "px";
   element.style.top = y + "px";
 
-  this.size = { width: 80, height: 80 };
+  this.size = { width: 60, height: 60 };
 
   element.style.position = "absolute";
   element.style.width = this.size.width + "px";

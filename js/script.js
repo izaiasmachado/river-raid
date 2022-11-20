@@ -1,4 +1,3 @@
-// event listener for a and s
 const game = new Game();
 
 const events = {
@@ -13,6 +12,11 @@ const events = {
       game.player.moveRight();
     },
   },
+  // w: {
+  //   keydown: () => {
+  //     game.background.update();
+  //   },
+  // },
 };
 document.addEventListener("keydown", function (event) {
   if (events[event.key]) {

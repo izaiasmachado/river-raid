@@ -4,24 +4,15 @@ function Game() {
     const x = this.background.size.width / 2 - this.player.size.width / 2;
     const y = this.background.size.height - this.player.size.height - 150;
 
-    console.log(x, y);
     this.player.setCoordinate(x, y);
-
-    const playerElement = this.player.element;
-    this.element.appendChild(playerElement);
+    this.element.appendChild(this.player.element);
 
     const background = this.background;
 
     this.player.move = function (x, y) {
-      console.log(background);
-      console.log(this);
-
       const player = this;
       this.coordinate = nextCoordinate(player, background, { x, y });
       this.setCoordinate(this.coordinate.x, this.coordinate.y);
-
-      console.log("aquii", JSON.stringify(this.coordinate));
-      console.log(this.element.style.left, this.element.style.top);
     };
   };
 
@@ -34,7 +25,9 @@ function Game() {
   this.setBackground();
   this.addPlayer();
 
-  console.log(this.element);
+  setInterval(() => {
+    this.background.update();
+  }, 100);
 }
 
 function nextCoordinate(player, background, move) {
