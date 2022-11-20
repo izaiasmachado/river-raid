@@ -12,11 +12,11 @@ const events = {
       game.player.moveRight();
     },
   },
-  // w: {
-  //   keydown: () => {
-  //     game.background.update();
-  //   },
-  // },
+  w: {
+    keydown: () => {
+      game.background.update();
+    },
+  },
 };
 document.addEventListener("keydown", function (event) {
   if (events[event.key]) {

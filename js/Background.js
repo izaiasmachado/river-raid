@@ -4,6 +4,7 @@ function Background(width, height) {
 
   this.element.style.width = width + "px";
   this.element.style.height = height + "px";
+
   this.levels = [];
   this.size = {
     width,

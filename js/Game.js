@@ -25,6 +25,9 @@ function Game() {
   this.setBackground();
   this.addPlayer();
 
+  const levelStyles = new LevelStyles();
+  this.background.addLevel(new Level(levelStyles.center));
+
   setInterval(() => {
     this.background.update();
   }, 100);
