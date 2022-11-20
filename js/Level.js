@@ -1,9 +1,5 @@
 // LEMBRETE: ADICIONAR ARVORES PIXEL ART NAS PAREDES
-function Level(prototype, coordinate = { x: 0, y: 0 }) {
-  if (!prototype) {
-    prototype = chooseLevel();
-  }
-
+function Level(prototype = chooseLevel(), coordinate = { x: 0, y: 0 }) {
   const rows = prototype.length;
   const columns = prototype[0].length;
   const rowSize = 60;

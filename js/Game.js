@@ -30,7 +30,7 @@ function Game() {
 
   setInterval(() => {
     this.background.update();
-  }, 100);
+  }, 200);
 }
 
 function nextCoordinate(player, background, move) {
