@@ -23,41 +23,16 @@ function Game() {
   };
 
   this.detectCollisions = function () {
-    const playerElement = this.player.element;
-    const playerRect = playerElement.getBoundingClientRect();
+    const level = this.background.levels[0];
+    const player = this.player;
 
-    const playerLeft = playerRect.left;
-    const playerRight = playerRect.right;
-    const playerTop = playerRect.top;
-    const playerBottom = playerRect.bottom;
+    const collidedCells = detectPlayerWallCollision(player, level);
 
-    const cells =
-      this.background.levels[0].element.getElementsByClassName("wall");
+    collidedCells.forEach((collisionCell) => {
+      collisionCell.classList.add("blink");
+    });
 
-    const collided = [];
-
-    for (let i = 0; i < cells.length; i++) {
-      const cell = cells[i];
-      const rect = cell.getBoundingClientRect();
-
-      const cellLeft = rect.left;
-      const cellRight = rect.right;
-      const cellTop = rect.top;
-      const cellBottom = rect.bottom;
-
-      isColliding =
-        playerLeft < cellRight &&
-        playerRight > cellLeft &&
-        playerTop < cellBottom &&
-        playerBottom > cellTop;
-
-      if (isColliding) {
-        collided.push(cell);
-        cell.classList.add("blink");
-      }
-    }
-
-    return collided.length > 0;
+    return collidedCells.length > 0;
   };
 
   this.setBackground();
@@ -68,9 +43,9 @@ function Game() {
 
   const interval = setInterval(() => {
     this.background.update();
+
     if (this.detectCollisions()) {
       interval && clearInterval(interval);
-      console.log("collision");
     }
   }, 300);
 }
@@ -89,4 +64,40 @@ function nextCoordinate(player, background, move) {
   }
 
   return { x: nextX, y: nextY };
+}
+
+function detectPlayerWallCollision(player, level) {
+  const playerRectangle = player.bounds();
+  const {
+    left: playerLeft,
+    right: playerRight,
+    top: playerTop,
+    bottom: playerBottom,
+  } = playerRectangle;
+
+  const cells = level.element.getElementsByClassName("wall");
+
+  const collidedCell = [];
+
+  for (let i = 0; i < cells.length; i++) {
+    const cell = cells[i];
+    const rect = cell.getBoundingClientRect();
+
+    const cellLeft = rect.left;
+    const cellRight = rect.right;
+    const cellTop = rect.top;
+    const cellBottom = rect.bottom;
+
+    isColliding =
+      playerLeft < cellRight &&
+      playerRight > cellLeft &&
+      playerTop < cellBottom &&
+      playerBottom > cellTop;
+
+    if (isColliding) {
+      collidedCell.push(cell);
+    }
+  }
+
+  return collidedCell;
 }

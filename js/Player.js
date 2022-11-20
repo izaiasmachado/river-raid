@@ -27,4 +27,13 @@ function Player(x = 0, y = 0) {
 
   this.moveLeft = () => this.move(-30, 0);
   this.moveRight = () => this.move(30, 0);
+
+  this.bounds = () => {
+    const rectangle = this.element.getBoundingClientRect();
+    return rectangle;
+  };
+
+  this.die = () => {
+    this.element.classList.add("blink");
+  };
 }
