@@ -1,20 +1,13 @@
 class Game {
   constructor() {
+    this.over = false;
     this.setBackground();
     this.addPlayer();
     this.handleKeydowns();
+    this.listenCollisions();
 
     const levelStyles = new LevelStyles();
     this.background.addLevel(new Level(levelStyles.center));
-
-    const interval = setInterval(() => {
-      this.background.update();
-
-      if (this.player.detectCollisions()) {
-        this.player.die();
-        interval && clearInterval(interval);
-      }
-    }, 100);
   }
 
   addPlayer = function () {
@@ -54,6 +47,21 @@ class Game {
         try {
           this.handleKeydown(command);
         } catch {}
+      },
+    });
+  };
+
+  listenCollisions = function () {
+    const listener = new GlobalEventListener();
+
+    listener.subscribe({
+      notify: (command) => {
+        if (command.type !== "player-wall-collision") return;
+
+        const cell = command.data.cell;
+        cell.classList.add("blink");
+
+        this.player.die();
       },
     });
   };
