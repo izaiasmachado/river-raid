@@ -42,47 +42,19 @@ class PlayerBackground extends Player {
   detectPlayerWallCollision = () => {
     const listener = new GlobalEventListener();
     const level = this.background.levels[0];
+    const tiles = level.tiles;
 
-    const playerRectangle = this.bounds();
-    const {
-      left: playerLeft,
-      right: playerRight,
-      top: playerTop,
-      bottom: playerBottom,
-    } = playerRectangle;
+    tiles.forEach((tile) => {
+      if (!tile.isWall) return;
+      if (!tile.isColliding(this)) return;
 
-    const cells = level.element.getElementsByClassName("wall");
-
-    const collidedCell = [];
-
-    for (let i = 0; i < cells.length; i++) {
-      const cell = cells[i];
-      const rect = cell.getBoundingClientRect();
-
-      const cellLeft = rect.left;
-      const cellRight = rect.right;
-      const cellTop = rect.top;
-      const cellBottom = rect.bottom;
-
-      const isColliding =
-        playerLeft < cellRight &&
-        playerRight > cellLeft &&
-        playerTop < cellBottom &&
-        playerBottom > cellTop;
-
-      if (isColliding) {
-        listener.notifyAll({
-          type: "player-wall-collision",
-          data: {
-            cell,
-          },
-        });
-
-        collidedCell.push(cell);
-      }
-    }
-
-    return collidedCell;
+      listener.notifyAll({
+        type: "player-wall-collision",
+        data: {
+          tile,
+        },
+      });
+    });
   };
 
   periodicallyNotifyCollisions = () => {

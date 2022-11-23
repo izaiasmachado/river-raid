@@ -57,9 +57,8 @@ class Game {
     listener.subscribe({
       notify: (command) => {
         if (command.type !== "player-wall-collision") return;
-
-        const cell = command.data.cell;
-        cell.classList.add("blink");
+        const tile = command.data.tile;
+        tile.element.classList.add("blink");
 
         this.player.die();
       },
