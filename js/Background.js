@@ -24,6 +24,8 @@ function Background(width, height) {
   };
 
   this.removeFirstLevel = function () {
+    if (this.levels.length === 0) return;
+
     const level = this.levels[0];
     if (!level.canBeRemoved()) return;
 
