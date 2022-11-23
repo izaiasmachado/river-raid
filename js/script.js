@@ -1,26 +1,15 @@
 const game = new Game();
+const listener = new GlobalEventListener();
 
-const events = {
-  a: {
-    keydown: () => {
-      console.log(game.player);
-      game.player.moveLeft();
-    },
-  },
-  d: {
-    keydown: () => {
-      game.player.moveRight();
-    },
-  },
-  // w: {
-  //   keydown: () => {
-  //     console.log(game.detectCollisions());
-  //     game.background.update();
-  //   },
-  // },
+const handleKeydown = (event) => {
+  const listener = new GlobalEventListener();
+  const keyPressed = event.key;
+  const command = {
+    type: "keydown",
+    keyPressed,
+  };
+
+  listener.notifyAll(command);
 };
-document.addEventListener("keydown", function (event) {
-  if (events[event.key]) {
-    events[event.key].keydown();
-  }
-});
+
+document.addEventListener("keydown", handleKeydown);
