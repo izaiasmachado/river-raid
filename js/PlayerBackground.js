@@ -7,6 +7,8 @@ class PlayerBackground extends Player {
     const y = this.background.size.height - this.size.height - 150;
 
     this.setCoordinate(x, y);
+    this.periodicallyNotifyCollisions();
+    this.periodicallyUpdateBackground();
   }
 
   move = (x, y) => {
@@ -37,50 +39,65 @@ class PlayerBackground extends Player {
     return { x: nextX, y: nextY };
   };
 
-  detectCollisions = () => {
+  detectPlayerWallCollision = () => {
+    const listener = new GlobalEventListener();
     const level = this.background.levels[0];
-    const collidedCells = detectPlayerWallCollision(this, level);
 
-    collidedCells.forEach((collisionCell) => {
-      collisionCell.classList.add("blink");
-    });
+    const playerRectangle = this.bounds();
+    const {
+      left: playerLeft,
+      right: playerRight,
+      top: playerTop,
+      bottom: playerBottom,
+    } = playerRectangle;
 
-    return collidedCells.length > 0;
-  };
-}
+    const cells = level.element.getElementsByClassName("wall");
 
-function detectPlayerWallCollision(player, level) {
-  const playerRectangle = player.bounds();
-  const {
-    left: playerLeft,
-    right: playerRight,
-    top: playerTop,
-    bottom: playerBottom,
-  } = playerRectangle;
+    const collidedCell = [];
 
-  const cells = level.element.getElementsByClassName("wall");
+    for (let i = 0; i < cells.length; i++) {
+      const cell = cells[i];
+      const rect = cell.getBoundingClientRect();
 
-  const collidedCell = [];
+      const cellLeft = rect.left;
+      const cellRight = rect.right;
+      const cellTop = rect.top;
+      const cellBottom = rect.bottom;
 
-  for (let i = 0; i < cells.length; i++) {
-    const cell = cells[i];
-    const rect = cell.getBoundingClientRect();
+      const isColliding =
+        playerLeft < cellRight &&
+        playerRight > cellLeft &&
+        playerTop < cellBottom &&
+        playerBottom > cellTop;
 
-    const cellLeft = rect.left;
-    const cellRight = rect.right;
-    const cellTop = rect.top;
-    const cellBottom = rect.bottom;
+      if (isColliding) {
+        listener.notifyAll({
+          type: "player-wall-collision",
+          data: {
+            cell,
+          },
+        });
 
-    isColliding =
-      playerLeft < cellRight &&
-      playerRight > cellLeft &&
-      playerTop < cellBottom &&
-      playerBottom > cellTop;
-
-    if (isColliding) {
-      collidedCell.push(cell);
+        collidedCell.push(cell);
+      }
     }
-  }
 
-  return collidedCell;
+    return collidedCell;
+  };
+
+  periodicallyNotifyCollisions = () => {
+    setInterval(() => {
+      if (this.isAlive()) {
+        this.detectPlayerWallCollision();
+      }
+    }, 10);
+  };
+
+  periodicallyUpdateBackground = () => {
+    setInterval(() => {
+      if (this.isAlive()) {
+        this.background.update();
+      }
+    }, 100);
+  };
 }
