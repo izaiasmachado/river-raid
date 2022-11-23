@@ -4,9 +4,6 @@ class GameControlls {
     this.background = background;
     this.setPlayerInitialCoordinate();
 
-    this.handleKeydowns();
-    this.listenCollisions();
-
     this.periodicallyNotifyCollisions();
     this.periodicallyUpdateBackground();
   }
@@ -81,48 +78,4 @@ class GameControlls {
     const y = backgroundHeight - playerHeight - 150;
     this.player.setCoordinate(x, y);
   }
-
-  handleKeydown = function (command) {
-    const keyActions = {
-      a: () => this.movePlayerLeft(),
-      d: () => this.movePlayerRight(),
-      ArrowLeft: () => this.movePlayerLeft(),
-      ArrowRight: () => this.movePlayerRight(),
-    };
-    const action = keyActions[command.keyPressed];
-
-    if (action === undefined) {
-      throw new Error("Key not mapped");
-    }
-
-    action();
-  };
-
-  handleKeydowns = function () {
-    const listener = new GlobalEventListener();
-
-    listener.subscribe({
-      notify: (command) => {
-        if (command.type !== "keydown") return;
-
-        try {
-          this.handleKeydown(command);
-        } catch {}
-      },
-    });
-  };
-
-  listenCollisions = function () {
-    const listener = new GlobalEventListener();
-
-    listener.subscribe({
-      notify: (command) => {
-        if (command.type !== "player-wall-collision") return;
-        const tile = command.data.tile;
-        tile.element.classList.add("blink");
-
-        this.player.die();
-      },
-    });
-  };
 }

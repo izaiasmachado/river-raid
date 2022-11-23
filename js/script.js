@@ -1,5 +1,4 @@
 const game = new Game();
-const listener = new GlobalEventListener();
 
 const handleKeydown = (event) => {
   const listener = new GlobalEventListener();
