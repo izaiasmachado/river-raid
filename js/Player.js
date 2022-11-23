@@ -1,39 +1,47 @@
-function Player(x = 0, y = 0) {
-  const element = document.createElement("div");
-  element.classList.add("player");
+class Player {
+  constructor(x = 0, y = 0) {
+    this.alive = true;
 
-  const img = document.createElement("img");
-  img.src = "img/goku.gif";
-  element.appendChild(img);
+    this.createElement();
+    this.setCoordinate(x, y);
+    this.setSize({ width: 60, height: 60 });
+  }
 
-  element.style.left = x + "px";
-  element.style.top = y + "px";
+  createElement = () => {
+    const element = document.createElement("div");
+    element.classList.add("player");
 
-  this.size = { width: 60, height: 60 };
+    const img = document.createElement("img");
+    img.src = "img/goku.gif";
+    element.appendChild(img);
 
-  element.style.position = "absolute";
-  element.style.width = this.size.width + "px";
-  element.style.height = this.size.height + "px";
+    this.element = element;
+  };
 
-  this.element = element;
-  this.name = "Goku";
-  this.coordinate = { x, y };
-
-  this.setCoordinate = (x, y) => {
+  setCoordinate = (x, y) => {
     this.coordinate = { x, y };
     this.element.style.left = this.coordinate.x + "px";
     this.element.style.top = this.coordinate.y + "px";
   };
 
-  this.moveLeft = () => this.move(-30, 0);
-  this.moveRight = () => this.move(30, 0);
+  setSize = (size) => {
+    this.size = size;
+    this.element.style.width = this.size.width + "px";
+    this.element.style.height = this.size.height + "px";
+  };
 
-  this.bounds = () => {
+  moveLeft = () => this.move(-30, 0);
+  moveRight = () => this.move(30, 0);
+
+  bounds = () => {
     const rectangle = this.element.getBoundingClientRect();
     return rectangle;
   };
 
-  this.die = () => {
+  isAlive = () => this.alive;
+
+  die = () => {
+    this.alive = false;
     this.element.classList.add("blink");
   };
 }
