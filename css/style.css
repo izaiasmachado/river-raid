@@ -71,8 +71,12 @@ body {
   background-color: var(--bege);
 }
 
-.blink {
-  animation: blinker 1s linear infinite;
+.wall.blink {
+  animation: wallBlinke 1s linear infinite;
+}
+
+.player.blink {
+  animation: playerBlink 1s linear infinite;
 }
 
 .tree {
@@ -85,8 +89,15 @@ body {
   height: 100%;
 }
 
-@keyframes blinker {
+@keyframes wallBlinke {
   50% {
     opacity: 0.8;
+  }
+}
+
+@keyframes playerBlink {
+  50% {
+    opacity: 0.8;
+    filter: hue-rotate(40deg);
   }
 }

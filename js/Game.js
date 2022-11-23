@@ -1,19 +1,7 @@
 function Game() {
   this.addPlayer = function () {
-    this.player = new Player();
-    const x = this.background.size.width / 2 - this.player.size.width / 2;
-    const y = this.background.size.height - this.player.size.height - 150;
-
-    this.player.setCoordinate(x, y);
+    this.player = new PlayerBackground(this.background);
     this.element.appendChild(this.player.element);
-
-    const background = this.background;
-
-    this.player.move = function (x, y) {
-      const player = this;
-      this.coordinate = nextCoordinate(player, background, { x, y });
-      this.setCoordinate(this.coordinate.x, this.coordinate.y);
-    };
   };
 
   this.setBackground = function () {
@@ -45,25 +33,10 @@ function Game() {
     this.background.update();
 
     if (this.detectCollisions()) {
+      this.player.die();
       interval && clearInterval(interval);
     }
   }, 300);
-}
-
-function nextCoordinate(player, background, move) {
-  const { x: playerX, y: playerY } = player.coordinate;
-  let nextX = playerX + move.x;
-  let nextY = playerY + move.y;
-
-  if (nextX < 0 || nextX + player.size.width > background.size.width) {
-    nextX = playerX;
-  }
-
-  if (nextY < 0 || nextY + player.size.height > background.size.height) {
-    nextY = playerY;
-  }
-
-  return { x: nextX, y: nextY };
 }
 
 function detectPlayerWallCollision(player, level) {
