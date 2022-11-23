@@ -3,9 +3,6 @@ class GameControlls {
     this.player = player;
     this.background = background;
     this.setPlayerInitialCoordinate();
-
-    this.periodicallyNotifyCollisions();
-    this.periodicallyUpdateBackground();
   }
 
   movePlayer = (x, y) => {
@@ -36,8 +33,7 @@ class GameControlls {
     return { x: nextX, y: nextY };
   };
 
-  detectPlayerWallCollision = () => {
-    const listener = new GlobalEventListener();
+  detectPlayerWallCollision = (callback) => {
     const level = this.background.levels[0];
     const tiles = level.tiles;
 
@@ -45,29 +41,8 @@ class GameControlls {
       if (!tile.isWall) return;
       if (!tile.isColliding(this.player)) return;
 
-      listener.notifyAll({
-        type: "player-wall-collision",
-        data: {
-          tile,
-        },
-      });
+      callback(tile);
     });
-  };
-
-  periodicallyNotifyCollisions = () => {
-    setInterval(() => {
-      if (this.player.isAlive()) {
-        this.detectPlayerWallCollision();
-      }
-    }, 10);
-  };
-
-  periodicallyUpdateBackground = () => {
-    setInterval(() => {
-      if (this.player.isAlive()) {
-        this.background.update();
-      }
-    }, 100);
   };
 
   setPlayerInitialCoordinate() {
