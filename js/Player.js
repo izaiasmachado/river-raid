@@ -19,6 +19,7 @@ class Player {
   };
 
   setCoordinate = (x, y) => {
+    if (!this.isAlive()) return;
     this.coordinate = { x, y };
     this.element.style.left = this.coordinate.x + "px";
     this.element.style.top = this.coordinate.y + "px";
@@ -29,9 +30,6 @@ class Player {
     this.element.style.width = this.size.width + "px";
     this.element.style.height = this.size.height + "px";
   };
-
-  moveLeft = () => this.move(-30, 0);
-  moveRight = () => this.move(30, 0);
 
   bounds = () => {
     const rectangle = this.element.getBoundingClientRect();

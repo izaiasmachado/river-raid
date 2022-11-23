@@ -3,6 +3,7 @@ class Level {
     this.levelPrototype = prototype;
     this.rows = this.levelPrototype.length;
     this.columns = this.levelPrototype[0].length;
+    this.tiles = [];
 
     this.rowSize = 60;
 
@@ -47,23 +48,10 @@ class Level {
 
     for (let row = 0; row < rows; row++) {
       for (let column = 0; column < columns; column++) {
-        const className =
-          this.levelPrototype[row][column] === 1 ? "wall" : "floor";
-        const cell = document.createElement("div");
-
-        cell.classList.add("cell", className);
-
-        if (className === "wall" && Math.random() * 100 < 5) {
-          const tree = document.createElement("div");
-          tree.classList.add("tree");
-
-          const treeImg = document.createElement("img");
-          treeImg.src = "img/dead-tree.png";
-          tree.appendChild(treeImg);
-
-          cell.appendChild(tree);
-        }
-
+        const isWall = this.levelPrototype[row][column] === 1;
+        const tile = isWall ? new Wall() : new Floor();
+        const cell = tile.element;
+        this.tiles.push(tile);
         this.element.appendChild(cell);
       }
     }
