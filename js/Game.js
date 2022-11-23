@@ -1,67 +1,35 @@
 class Game {
   constructor() {
-    this.over = false;
-    this.setBackground();
-    this.addPlayer();
-    this.handleKeydowns();
-    this.listenCollisions();
+    this.setElement();
 
-    const levelStyles = new LevelStyles();
-    this.background.addLevel(new Level(levelStyles.center));
+    this.setPlayer();
+    this.setBackground();
+
+    this.addInitialBackgroundLevel();
+    this.setGameControlls();
   }
 
-  addPlayer = function () {
-    this.player = new PlayerBackground(this.background);
+  setElement = () => {
+    this.element = document.querySelector("[wm-game]");
+  };
+
+  setPlayer = () => {
+    this.player = new Player();
     this.element.appendChild(this.player.element);
   };
 
-  setBackground = function () {
+  setBackground = () => {
     this.background = new Background(800, 600);
     this.element = document.querySelector("[wm-game]");
     this.element.appendChild(this.background.element);
   };
 
-  handleKeydown = function (command) {
-    const keyActions = {
-      a: () => this.player.moveLeft(),
-      d: () => this.player.moveRight(),
-      ArrowLeft: () => this.player.moveLeft(),
-      ArrowRight: () => this.player.moveRight(),
-    };
-    const action = keyActions[command.keyPressed];
-
-    if (action === undefined) {
-      throw new Error("Key not mapped");
-    }
-
-    action();
+  addInitialBackgroundLevel = () => {
+    const levelStyles = new LevelStyles();
+    this.background.addLevel(new Level(levelStyles.center));
   };
 
-  handleKeydowns = function () {
-    const listener = new GlobalEventListener();
-
-    listener.subscribe({
-      notify: (command) => {
-        if (command.type !== "keydown") return;
-
-        try {
-          this.handleKeydown(command);
-        } catch {}
-      },
-    });
-  };
-
-  listenCollisions = function () {
-    const listener = new GlobalEventListener();
-
-    listener.subscribe({
-      notify: (command) => {
-        if (command.type !== "player-wall-collision") return;
-        const tile = command.data.tile;
-        tile.element.classList.add("blink");
-
-        this.player.die();
-      },
-    });
+  setGameControlls = () => {
+    this.controlls = new GameControlls(this.player, this.background);
   };
 }
