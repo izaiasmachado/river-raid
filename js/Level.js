@@ -1,4 +1,3 @@
-// LEMBRETE: ADICIONAR ARVORES PIXEL ART NAS PAREDES
 function Level(prototype = chooseLevel(), coordinate = { x: 0, y: 0 }) {
   const rows = prototype.length;
   const columns = prototype[0].length;
@@ -24,6 +23,18 @@ function Level(prototype = chooseLevel(), coordinate = { x: 0, y: 0 }) {
       const className = prototype[row][column] === 1 ? "wall" : "floor";
       const cell = document.createElement("div");
       cell.classList.add("cell", className);
+
+      if (className === "wall" && Math.random() * 100 < 5) {
+        const tree = document.createElement("div");
+        tree.classList.add("tree");
+
+        const treeImg = document.createElement("img");
+        treeImg.src = "img/dead-tree.png";
+        tree.appendChild(treeImg);
+
+        cell.appendChild(tree);
+      }
+
       this.element.appendChild(cell);
     }
   }
