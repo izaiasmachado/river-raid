@@ -4,7 +4,6 @@ class Level {
     this.rows = this.levelPrototype.length;
     this.columns = this.levelPrototype[0].length;
     this.tiles = [];
-    this.moveSpeed = 10;
 
     this.rowSize = 60;
 
@@ -13,6 +12,10 @@ class Level {
     this.createLevelGrid();
     this.createWalls();
   }
+
+  setMoveSpeed = (speed) => {
+    this.moveSpeed = speed;
+  };
 
   getRowsAndColumns = () => {
     const rows = this.rows;
