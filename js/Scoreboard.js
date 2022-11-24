@@ -1,7 +1,10 @@
 class Scoreboard {
   constructor() {
     this.createElement();
-    this.setScoreboard(0, 0);
+    this.setUpEnergyBoard();
+    this.setUpPointsBoard();
+    this.setPoints(0);
+    this.setEnergy(0);
   }
 
   createElement = () => {
@@ -11,12 +14,11 @@ class Scoreboard {
     const emptyDivLeft = document.createElement("div");
     emptyDivLeft.classList.add("empty-left");
     this.element.appendChild(emptyDivLeft);
+  };
 
-    this.energy = {
-      element: document.createElement("div"),
-      value: 0,
-    };
-
+  setUpEnergyBoard = () => {
+    this.energy = {};
+    this.energy.element = document.createElement("div");
     this.energy.element.classList.add("energy");
 
     this.energy.progress = document.createElement("progress");
@@ -26,25 +28,24 @@ class Scoreboard {
     this.energy.element.appendChild(this.energy.progress);
 
     this.element.appendChild(this.energy.element);
+    this.setEnergy(0);
+  };
 
-    this.points = {
-      element: document.createElement("div"),
-      value: 0,
-    };
-
+  setUpPointsBoard = () => {
+    this.points = {};
+    this.points.element = document.createElement("div");
     this.points.element.classList.add("points");
     this.element.appendChild(this.points.element);
+    this.setPoints(0);
   };
 
-  updateScoreboard = () => {
-    this.energy.progress.setAttribute("value", this.energy.value);
-    this.points.element.innerHTML = this.points.value;
-  };
-
-  setScoreboard = (energy, points) => {
+  setEnergy = (energy) => {
     this.energy.value = energy;
-    this.points.value = points;
+    this.energy.progress.setAttribute("value", this.energy.value);
+  };
 
-    this.updateScoreboard();
+  setPoints = (points) => {
+    this.points.value = points;
+    this.points.element.innerText = this.points.value;
   };
 }

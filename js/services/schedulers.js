@@ -39,7 +39,6 @@ schedulers.add(detectCollisions, 10);
 schedulers.add(updateBackground, 25);
 schedulers.add(isPlayerAlive, 100);
 schedulers.add(decreaseEnergy, 1000);
-schedulers.add(updateScoreboard, 10);
 schedulers.start();
 
 function detectCollisions() {
@@ -62,10 +61,4 @@ function isPlayerAlive() {
 
 function decreaseEnergy() {
   game.player.decreaseEnergy();
-}
-
-function updateScoreboard() {
-  const energy = game.player.energy;
-  const points = game.player.points;
-  game.scoreboard.setScoreboard(energy, points);
 }

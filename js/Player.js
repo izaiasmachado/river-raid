@@ -45,28 +45,50 @@ class Player {
     this.element.classList.add("blink");
   };
 
+  setEnergyCallback = (callback) => {
+    if (typeof callback !== "function") return;
+    this.energyCallback = callback;
+  };
+
+  setEnegy = (energy) => {
+    this.energy = energy;
+
+    if (!this.energyCallback) return;
+    this.energyCallback(this.energy);
+  };
+
   decreaseEnergy = () => {
     if (!this.isAlive()) return;
-
-    this.energy -= 1;
+    this.setEnegy(this.energy - 1);
     if (this.energy <= 0) this.die();
   };
 
   increaseEnergy = () => {
     if (!this.isAlive()) return;
     if (this.points >= 60) return;
-    this.energy += 1;
+    this.energyCallback(this.energy + 1);
+  };
+
+  setPointsCallback = (callback) => {
+    if (typeof callback !== "function") return;
+    this.pointsCallback = callback;
+  };
+
+  setPoints = (points) => {
+    this.points = points;
+    if (!this.pointsCallback) return;
+    this.pointsCallback(this.points);
   };
 
   increasePoints = () => {
     if (!this.isAlive()) return;
-    this.points += 1;
+    this.setPoints(this.points + 1);
   };
 
   decreasePoints = () => {
     if (!this.isAlive()) return;
     if (this.points <= 0) return;
-    this.points -= 1;
+    this.setPoints(this.points - 1);
   };
 
   getPoints = () => this.points;
