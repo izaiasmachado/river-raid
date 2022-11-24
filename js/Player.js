@@ -50,7 +50,7 @@ class Player {
     this.energyCallback = callback;
   };
 
-  setEnegy = (energy) => {
+  setEnergy = (energy) => {
     this.energy = energy;
 
     if (!this.energyCallback) return;
@@ -59,7 +59,7 @@ class Player {
 
   decreaseEnergy = () => {
     if (!this.isAlive()) return;
-    this.setEnegy(this.energy - 1);
+    this.setEnergy(this.energy - 1);
     if (this.energy <= 0) this.die();
   };
 

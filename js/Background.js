@@ -1,51 +1,84 @@
-function Background(width, height) {
-  this.element = document.createElement("div");
-  this.element.classList.add("background");
+class Background {
+  constructor(width, height) {
+    this.size = { width, height };
+    this.levels = [];
+    this.setElement();
+    this.setLevelTileHeight();
+    this.addInitialLevels();
+  }
 
-  this.element.style.width = width + "px";
-  this.element.style.height = height + "px";
-
-  this.levels = [];
-  this.size = {
-    width,
-    height,
+  setLevelTileHeight = () => {
+    this.levelTileHeight = this.size.height / LEVEL_TILES_IN_SCREEN;
   };
 
-  this.addLevel = function (level) {
+  setElement = () => {
+    this.element = document.createElement("div");
+    this.element.classList.add("background");
+    this.element.style.width = `${this.size.width}px`;
+    this.element.style.height = `${this.size.height}px`;
+  };
+
+  addLevel = (level) => {
     const previousLevelsHeight = this.levels.reduce(
       (sum, level) => sum + level.size.height,
       0
     );
     const { coordinate } = level;
+    level.setMoveSpeed(BACKGROUND_SCROLL_SPEED_PX);
     level.setCoordinate(coordinate.x, previousLevelsHeight);
 
     this.levels.push(level);
     this.element.appendChild(level.element);
   };
 
-  this.removeFirstLevel = function () {
+  addRandomLevel = () => {
+    const level = new Level(undefined, undefined, this.levelTileHeight);
+    this.addLevel(level);
+  };
+
+  addCenterLevel = () => {
+    const levelStyles = new LevelStyles();
+    this.addLevel(
+      new Level(levelStyles.center, undefined, this.levelTileHeight)
+    );
+  };
+
+  addInitialLevels = () => {
+    this.addCenterLevel();
+
+    for (let i = 0; i < INITIAL_LEVELS - 1; i++) {
+      this.addRandomLevel();
+    }
+  };
+
+  removeLevel = (level) => {
+    this.levels = this.levels.filter((l) => l !== level);
+    this.element.removeChild(level.element);
+  };
+
+  removeLevelAt = (index) => {
     if (this.levels.length === 0) return;
-
-    const level = this.levels[0];
-    if (!level.canBeRemoved()) return;
-
+    const level = this.levels[index];
     this.levels.shift();
     this.element.removeChild(level.element);
   };
 
-  this.scroll = function () {
+  scroll = () => {
     this.levels.forEach((level) => {
       level.moveUp();
     });
   };
 
-  this.update = function () {
-    while (this.levels.length < 3) {
-      const level = new Level();
-      this.addLevel(level);
-    }
+  removeBottomLevel = (callback) => {
+    const bottomLevel = this.levels[0];
+    bottomLevel.removeLevel((level) => {
+      this.removeLevel(level);
+      callback();
+    });
+  };
 
+  update = () => {
     this.scroll();
-    this.removeFirstLevel();
+    this.removeBottomLevel(this.addRandomLevel);
   };
 }

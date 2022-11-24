@@ -5,7 +5,6 @@ class Game {
     this.setPlayer();
     this.setBackground();
 
-    this.addInitialBackgroundLevel();
     this.setGameControlls();
     this.addScoreboard();
   }
@@ -25,17 +24,19 @@ class Game {
     this.element.appendChild(this.background.element);
   };
 
-  addInitialBackgroundLevel = () => {
-    const levelStyles = new LevelStyles();
-    this.background.addLevel(new Level(levelStyles.center));
-  };
-
   setGameControlls = () => {
     this.controlls = new GameControlls(this.player, this.background);
   };
 
   addScoreboard = () => {
     this.scoreboard = new Scoreboard();
+
+    this.player.setEnergyCallback(this.scoreboard.setEnergy);
+    this.player.setPointsCallback(this.scoreboard.setPoints);
+
+    this.player.setEnergy(this.player.energy);
+    this.player.setPoints(this.player.points);
+
     this.element.appendChild(this.scoreboard.element);
   };
 }
