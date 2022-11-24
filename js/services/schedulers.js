@@ -35,10 +35,10 @@ class SchedulerManager {
 }
 
 const schedulers = new SchedulerManager();
-schedulers.add(detectCollisions, 10);
-schedulers.add(updateBackground, 25);
-schedulers.add(isPlayerAlive, 100);
-schedulers.add(decreaseEnergy, 1000);
+schedulers.add(detectCollisions, DETECT_COLLISIONS_DELAY_MS);
+schedulers.add(updateBackground, UPDATE_BACKGROUND_DELAY_MS);
+schedulers.add(isPlayerAlive, VERIFY_PLAYER_ALIVE_DELAY_MS);
+schedulers.add(decreaseEnergy, DECREASE_ENERGY_DELAY_MS);
 schedulers.start();
 
 function detectCollisions() {
