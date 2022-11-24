@@ -1,7 +1,7 @@
 class Player {
   constructor(x = 0, y = 0) {
     this.alive = true;
-    this.energy = 40;
+    this.energy = PLAYER_DEFAULT_ENERGY;
     this.points = 0;
 
     this.createElement();
@@ -65,7 +65,7 @@ class Player {
 
   increaseEnergy = () => {
     if (!this.isAlive()) return;
-    if (this.points >= 60) return;
+    if (this.energy >= PLAYER_MAX_ENERGY) return;
     this.energyCallback(this.energy + 1);
   };
 

@@ -7,7 +7,7 @@ class Wall extends Tile {
   }
 
   giveChanceAddTree = () => {
-    if (Math.random() * 100 >= 5) return;
+    if (Math.random() * 100 >= WALL_CHANCE_ADD_TREE) return;
     this.addTree();
   };
 

@@ -23,8 +23,9 @@ class Scoreboard {
 
     this.energy.progress = document.createElement("progress");
     this.energy.progress.classList.add("energy-progress");
-    this.energy.progress.setAttribute("max", "60");
-    this.energy.progress.setAttribute("value", "5");
+    this.energy.progress.setAttribute("max", PLAYER_MAX_ENERGY);
+    this.energy.progress.setAttribute("value", 0);
+
     this.energy.element.appendChild(this.energy.progress);
 
     this.element.appendChild(this.energy.element);
