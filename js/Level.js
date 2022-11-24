@@ -1,10 +1,14 @@
 class Level {
-  constructor(prototype = chooseLevel(), coordinate = { x: 0, y: 0 }) {
+  constructor(
+    prototype = chooseLevel(),
+    coordinate = { x: 0, y: 0 },
+    tileHeight
+  ) {
     this.levelPrototype = prototype;
     this.rows = this.levelPrototype.length;
     this.columns = this.levelPrototype[0].length;
     this.tiles = [];
-    this.rowSize = 60;
+    this.tileHeight = tileHeight;
 
     this.createElement();
     this.setCoordinate(coordinate.x, coordinate.y);
@@ -39,7 +43,7 @@ class Level {
     this.element.style.gridTemplateRows = `repeat(${this.rows}, 1fr)`;
 
     this.element.style.width = "100%";
-    this.element.style.height = this.rows * this.rowSize + "px";
+    this.element.style.height = this.rows * this.tileHeight + "px";
     this.size = {
       width: parseInt(this.element.style.width),
       height: parseInt(this.element.style.height),

@@ -3,8 +3,13 @@ class Background {
     this.size = { width, height };
     this.levels = [];
     this.setElement();
+    this.setLevelTileHeight();
     this.addInitialLevels();
   }
+
+  setLevelTileHeight = () => {
+    this.levelTileHeight = this.size.height / LEVEL_TILES_IN_SCREEN;
+  };
 
   setElement = () => {
     this.element = document.createElement("div");
@@ -19,21 +24,23 @@ class Background {
       0
     );
     const { coordinate } = level;
-    level.setCoordinate(coordinate.x, previousLevelsHeight);
     level.setMoveSpeed(BACKGROUND_SCROLL_SPEED_PX);
+    level.setCoordinate(coordinate.x, previousLevelsHeight);
 
     this.levels.push(level);
     this.element.appendChild(level.element);
   };
 
   addRandomLevel = () => {
-    const level = new Level();
+    const level = new Level(undefined, undefined, this.levelTileHeight);
     this.addLevel(level);
   };
 
   addCenterLevel = () => {
     const levelStyles = new LevelStyles();
-    this.addLevel(new Level(levelStyles.center));
+    this.addLevel(
+      new Level(levelStyles.center, undefined, this.levelTileHeight)
+    );
   };
 
   addInitialLevels = () => {
