@@ -12,6 +12,9 @@ class GameControlls {
 
   movePlayerLeft = () => this.movePlayer(-30, 0);
   movePlayerRight = () => this.movePlayer(30, 0);
+  moveUp = () => {
+    this.background.update();
+  };
 
   nextCoordinate = (move) => {
     const { x: playerX, y: playerY } = this.player.coordinate;
