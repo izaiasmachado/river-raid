@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "VCR_OSD_MONO";
+  font-style: normal;
+  font-weight: 600;
+  src: url("../fonts/VCR_OSD_MONO_1.001.ttf") format("truetype");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -115,8 +122,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
-  color: var(--bege);
+  font-size: 3.2rem;
+  color: yellow;
+  font-family: "VCR_OSD_MONO";
+  text-shadow: 3px 2px 0 #fff;
 }
 
 .scoreboard .energy {

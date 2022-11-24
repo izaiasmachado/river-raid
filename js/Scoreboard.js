@@ -38,7 +38,7 @@ class Scoreboard {
 
   updateScoreboard = () => {
     this.energy.progress.setAttribute("value", this.energy.value);
-    this.points.element.innerHTML = "Points: " + this.points.value;
+    this.points.element.innerHTML = this.points.value;
   };
 
   setScoreboard = (energy, points) => {
