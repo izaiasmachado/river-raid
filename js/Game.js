@@ -7,6 +7,8 @@ class Game {
 
     this.setGameControlls();
     this.addScoreboard();
+
+    this.addPointAfterLevel();
   }
 
   setElement = () => {
@@ -38,5 +40,11 @@ class Game {
     this.player.setPoints(this.player.points);
 
     this.element.appendChild(this.scoreboard.element);
+  };
+
+  addPointAfterLevel = () => {
+    this.background.setPastLevelCallback(() => {
+      this.player.increasePoints();
+    });
   };
 }
