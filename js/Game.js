@@ -5,7 +5,6 @@ class Game {
     this.setPlayer();
     this.setBackground();
 
-    this.addInitialBackgroundLevel();
     this.setGameControlls();
     this.addScoreboard();
   }
@@ -23,11 +22,6 @@ class Game {
     this.background = new Background(800, 600);
     this.element = document.querySelector("[wm-game]");
     this.element.appendChild(this.background.element);
-  };
-
-  addInitialBackgroundLevel = () => {
-    const levelStyles = new LevelStyles();
-    this.background.addLevel(new Level(levelStyles.center));
   };
 
   setGameControlls = () => {

@@ -3,7 +3,7 @@ class Background {
     this.size = { width, height };
     this.levels = [];
     this.setElement();
-    this.addCenterLevel();
+    this.addInitialLevels();
   }
 
   setElement = () => {
@@ -36,6 +36,14 @@ class Background {
     this.addLevel(new Level(levelStyles.center));
   };
 
+  addInitialLevels = () => {
+    this.addCenterLevel();
+
+    for (let i = 0; i < INITIAL_LEVELS - 1; i++) {
+      this.addRandomLevel();
+    }
+  };
+
   removeLevelAt = (index) => {
     if (this.levels.length === 0) return;
     const level = this.levels[index];
@@ -43,10 +51,11 @@ class Background {
     this.element.removeChild(level.element);
   };
 
-  tryRemovingBottomLevel = () => {
+  tryRemovingBottomLevel = (callback) => {
     const level = this.levels[0];
     if (!level.canBeRemoved()) return;
     this.removeLevelAt(0);
+    callback();
   };
 
   scroll = () => {
@@ -56,10 +65,10 @@ class Background {
   };
 
   update = () => {
-    while (this.levels.length < 3) {
-      this.addRandomLevel();
-    }
     this.scroll();
-    this.tryRemovingBottomLevel();
+    this.tryRemovingBottomLevel(() => {
+      this.addRandomLevel();
+    });
+    console.log(this.levels.length);
   };
 }
