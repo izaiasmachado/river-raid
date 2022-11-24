@@ -8,12 +8,23 @@ class Scoreboard {
     this.element = document.createElement("div");
     this.element.classList.add("scoreboard");
 
+    const emptyDivLeft = document.createElement("div");
+    emptyDivLeft.classList.add("empty-left");
+    this.element.appendChild(emptyDivLeft);
+
     this.energy = {
       element: document.createElement("div"),
       value: 0,
     };
 
     this.energy.element.classList.add("energy");
+
+    this.energy.progress = document.createElement("progress");
+    this.energy.progress.classList.add("energy-progress");
+    this.energy.progress.setAttribute("max", "60");
+    this.energy.progress.setAttribute("value", "5");
+    this.energy.element.appendChild(this.energy.progress);
+
     this.element.appendChild(this.energy.element);
 
     this.points = {
@@ -26,7 +37,7 @@ class Scoreboard {
   };
 
   updateScoreboard = () => {
-    this.energy.element.innerHTML = "Energy: " + this.energy.value;
+    this.energy.progress.setAttribute("value", this.energy.value);
     this.points.element.innerHTML = "Points: " + this.points.value;
   };
 

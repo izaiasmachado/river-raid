@@ -54,6 +54,7 @@ class Player {
 
   increaseEnergy = () => {
     if (!this.isAlive()) return;
+    if (this.points >= 60) return;
     this.energy += 1;
   };
 
