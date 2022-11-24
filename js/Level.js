@@ -4,7 +4,6 @@ class Level {
     this.rows = this.levelPrototype.length;
     this.columns = this.levelPrototype[0].length;
     this.tiles = [];
-
     this.rowSize = 60;
 
     this.createElement();
@@ -76,8 +75,9 @@ class Level {
     this.element.style.bottom = this.coordinate.y + "px";
   };
 
-  canBeRemoved = () => {
-    return -this.coordinate.y + this.moveSpeed > this.size.height;
+  removeLevel = (callback) => {
+    if (-this.coordinate.y + this.moveSpeed <= this.size.height) return;
+    callback(this);
   };
 }
 

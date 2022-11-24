@@ -44,18 +44,16 @@ class Background {
     }
   };
 
+  removeLevel = (level) => {
+    this.levels = this.levels.filter((l) => l !== level);
+    this.element.removeChild(level.element);
+  };
+
   removeLevelAt = (index) => {
     if (this.levels.length === 0) return;
     const level = this.levels[index];
     this.levels.shift();
     this.element.removeChild(level.element);
-  };
-
-  tryRemovingBottomLevel = (callback) => {
-    const level = this.levels[0];
-    if (!level.canBeRemoved()) return;
-    this.removeLevelAt(0);
-    callback();
   };
 
   scroll = () => {
@@ -64,11 +62,16 @@ class Background {
     });
   };
 
+  removeBottomLevel = (callback) => {
+    const bottomLevel = this.levels[0];
+    bottomLevel.removeLevel((level) => {
+      this.removeLevel(level);
+      callback();
+    });
+  };
+
   update = () => {
     this.scroll();
-    this.tryRemovingBottomLevel(() => {
-      this.addRandomLevel();
-    });
-    console.log(this.levels.length);
+    this.removeBottomLevel(this.addRandomLevel);
   };
 }
