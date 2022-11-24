@@ -12,16 +12,9 @@ const keydownListener = (command) => {
   action();
 };
 
-const playerWallCollisionListener = (command) => {
-  const tile = command.data.tile;
-  tile.element.classList.add("blink");
-  game.player.die();
-};
-
 const createListeners = () => {
   const listener = new GlobalEventListener();
   const listenerFunctions = {
-    "player-wall-collision": playerWallCollisionListener,
     keydown: keydownListener,
   };
 

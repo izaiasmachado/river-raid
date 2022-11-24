@@ -35,21 +35,16 @@ class SchedulerManager {
 }
 
 const schedulers = new SchedulerManager();
-schedulers.add(notifyCollisions, 100);
-schedulers.add(updateBackground, 100);
+schedulers.add(detectCollisions, 10);
+schedulers.add(updateBackground, 25);
 schedulers.add(isPlayerAlive, 100);
+schedulers.add(decreaseEnergy, 1000);
 schedulers.start();
 
-function notifyCollisions() {
-  const listener = new GlobalEventListener();
-
+function detectCollisions() {
   game.controlls.detectPlayerWallCollision((tile) => {
-    listener.notifyAll({
-      type: "player-wall-collision",
-      data: {
-        tile,
-      },
-    });
+    tile.element.classList.add("blink");
+    game.player.die();
   });
 }
 
@@ -62,4 +57,8 @@ function isPlayerAlive() {
   if (!game.player.isAlive()) {
     schedulers.stop();
   }
+}
+
+function decreaseEnergy() {
+  game.player.decreaseEnergy();
 }

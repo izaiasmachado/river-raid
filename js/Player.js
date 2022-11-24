@@ -1,6 +1,8 @@
 class Player {
   constructor(x = 0, y = 0) {
     this.alive = true;
+    this.energy = 40;
+    this.points = 0;
 
     this.createElement();
     this.setCoordinate(x, y);
@@ -42,4 +44,53 @@ class Player {
     this.alive = false;
     this.element.classList.add("blink");
   };
+
+  setEnergyCallback = (callback) => {
+    if (typeof callback !== "function") return;
+    this.energyCallback = callback;
+  };
+
+  setEnegy = (energy) => {
+    this.energy = energy;
+
+    if (!this.energyCallback) return;
+    this.energyCallback(this.energy);
+  };
+
+  decreaseEnergy = () => {
+    if (!this.isAlive()) return;
+    this.setEnegy(this.energy - 1);
+    if (this.energy <= 0) this.die();
+  };
+
+  increaseEnergy = () => {
+    if (!this.isAlive()) return;
+    if (this.points >= 60) return;
+    this.energyCallback(this.energy + 1);
+  };
+
+  setPointsCallback = (callback) => {
+    if (typeof callback !== "function") return;
+    this.pointsCallback = callback;
+  };
+
+  setPoints = (points) => {
+    this.points = points;
+    if (!this.pointsCallback) return;
+    this.pointsCallback(this.points);
+  };
+
+  increasePoints = () => {
+    if (!this.isAlive()) return;
+    this.setPoints(this.points + 1);
+  };
+
+  decreasePoints = () => {
+    if (!this.isAlive()) return;
+    if (this.points <= 0) return;
+    this.setPoints(this.points - 1);
+  };
+
+  getPoints = () => this.points;
+  getEnergy = () => this.energy;
 }

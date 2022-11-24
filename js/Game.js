@@ -7,6 +7,7 @@ class Game {
 
     this.addInitialBackgroundLevel();
     this.setGameControlls();
+    this.addScoreboard();
   }
 
   setElement = () => {
@@ -31,5 +32,10 @@ class Game {
 
   setGameControlls = () => {
     this.controlls = new GameControlls(this.player, this.background);
+  };
+
+  addScoreboard = () => {
+    this.scoreboard = new Scoreboard();
+    this.element.appendChild(this.scoreboard.element);
   };
 }
