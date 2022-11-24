@@ -90,6 +90,27 @@ body {
   height: 100%;
 }
 
+.scoreboard {
+  bottom: 0;
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 15%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.scoreboard .energy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  color: #fff;
+  font-size: 2rem;
+  background-color: red;
+}
+
 @keyframes wallBlinke {
   50% {
     opacity: 0.8;

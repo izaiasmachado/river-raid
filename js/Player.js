@@ -1,6 +1,8 @@
 class Player {
   constructor(x = 0, y = 0) {
     this.alive = true;
+    this.energy = 40;
+    this.points = 0;
 
     this.createElement();
     this.setCoordinate(x, y);
@@ -42,4 +44,30 @@ class Player {
     this.alive = false;
     this.element.classList.add("blink");
   };
+
+  decreaseEnergy = () => {
+    if (!this.isAlive()) return;
+
+    this.energy -= 1;
+    if (this.energy <= 0) this.die();
+  };
+
+  increaseEnergy = () => {
+    if (!this.isAlive()) return;
+    this.energy += 1;
+  };
+
+  increasePoints = () => {
+    if (!this.isAlive()) return;
+    this.points += 1;
+  };
+
+  decreasePoints = () => {
+    if (!this.isAlive()) return;
+    if (this.points <= 0) return;
+    this.points -= 1;
+  };
+
+  getPoints = () => this.points;
+  getEnergy = () => this.energy;
 }
