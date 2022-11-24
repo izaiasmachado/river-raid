@@ -36,6 +36,13 @@ class Game {
 
   addScoreboard = () => {
     this.scoreboard = new Scoreboard();
+
+    this.player.setEnergyCallback(this.scoreboard.setEnergy);
+    this.player.setPointsCallback(this.scoreboard.setPoints);
+
+    this.player.setEnergy(this.player.energy);
+    this.player.setPoints(this.player.points);
+
     this.element.appendChild(this.scoreboard.element);
   };
 }
