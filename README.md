@@ -16,6 +16,16 @@ O jogo original foi feito em 1982 por [David Crane](<https://en.wikipedia.org/wi
 
 O projeto foi feito para a disciplina de Tecnologias Web da Universiade Federal do Ceará. O roteiro do projeto pode ser encontrado [neste link](./docs/roteiro.md).
 
+## Requisitos do projeto
+
+- [x] O jogo consiste em uma nave que deverá passar por obstáculos.
+- [x] A nave pode abastecer ao longo do percurso em postos de combustível que aparecem aleatoriamente no cenário do jogo.
+- [x] A cada segundo que passa no jogo a nave perde uma unidade de energia, caso não seja feito um abastecimento antes que o combustível acabe o jogo termina.
+- [x] Caso a nave encoste em algum obstáculo o jogo também termina.
+- [x] A cada sequência de obstáculo vencido a nave ganha pontos.
+- [ ] A nave poderá pegar ao longo do jogo elementos. Esses elementos devem acrescentar pontos extras à nave.
+- [ ] No término do jogo deverá ser apresentada a pontuação final do jogador e quantas vezes o posto de combustível foi utilizado.
+
 ## Paleta de Cores
 
 | **Código** | **Hex**   | ![Color Picker Boxes](https://draculatheme.com/static/img/color-boxes/eyedropper.png) |

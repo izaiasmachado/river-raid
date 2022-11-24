@@ -36,12 +36,11 @@ class GameControlls {
     return { x: nextX, y: nextY };
   };
 
-  detectPlayerWallCollision = (callback) => {
+  detectCollisions = (callback) => {
     const level = this.background.levels[0];
     const tiles = level.tiles;
 
     tiles.forEach((tile) => {
-      if (!tile.isWall) return;
       if (!tile.isColliding(this.player)) return;
 
       callback(tile);

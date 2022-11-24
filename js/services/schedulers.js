@@ -41,10 +41,20 @@ schedulers.add(isPlayerAlive, VERIFY_PLAYER_ALIVE_DELAY_MS);
 schedulers.add(decreaseEnergy, DECREASE_ENERGY_DELAY_MS);
 schedulers.start();
 
+const wallCollision = (tile) => {
+  tile.element.classList.add("blink");
+  game.player.die();
+};
+
+const foodCollision = (tile) => {
+  game.player.eat();
+  tile.removeFood();
+};
+
 function detectCollisions() {
-  game.controlls.detectPlayerWallCollision((tile) => {
-    tile.element.classList.add("blink");
-    game.player.die();
+  game.controlls.detectCollisions((tile) => {
+    if (tile.isWall) return wallCollision(tile);
+    if (tile.hasFood) return foodCollision(tile);
   });
 }
 
