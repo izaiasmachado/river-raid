@@ -4,6 +4,24 @@ class CollisionDetector {
     this.background = background;
   }
 
+  getTiles = () => {
+    const playerBounds = this.player.bounds();
+    const levels = this.background.levels;
+    const tiles = levels.map((level) => level.tiles).flat();
+
+    const tilesUnderPlayer = tiles.filter((tile) => {
+      const tileBounds = tile.bounds();
+      const isUnderPlayer =
+        playerBounds.left < tileBounds.right &&
+        playerBounds.right > tileBounds.left &&
+        playerBounds.top < tileBounds.bottom &&
+        playerBounds.bottom > tileBounds.top;
+      return isUnderPlayer;
+    });
+
+    return tilesUnderPlayer;
+  };
+
   collisionDetectedCallback = (tile) => {
     if (tile.isWall) return this.wallCollision(tile);
     if (tile.hasFood) return this.foodCollision(tile);
@@ -11,14 +29,8 @@ class CollisionDetector {
   };
 
   detectCollisions = (callback) => {
-    const level = this.background.levels[0];
-    const tiles = level.tiles;
-
-    tiles.forEach((tile) => {
-      if (!tile.isColliding(this.player)) return;
-
-      callback(tile);
-    });
+    const tilesUnderPlayer = this.getTiles();
+    tilesUnderPlayer.forEach(callback);
   };
 
   detect = () => {
