@@ -102,12 +102,12 @@ class GameOverScreen extends Screen {
     this.title.classList.add("game-over-screen__title");
     this.title.innerText = "Game Over";
 
-    // this.h2 = document.createElement("h2");
-    // this.h2.classList.add("game-over-screen__subtitle");
-    // this.h2.innerText = "Aperte qualquer tecla para jogar novamente";
+    this.h2 = document.createElement("h2");
+    this.h2.classList.add("game-over-screen__subtitle");
+    this.h2.innerText = "Aperte espaço para jogar novamente";
 
     this.element.appendChild(this.title);
-    // this.element.appendChild(this.h2);
+    this.element.appendChild(this.h2);
 
     document.querySelector("[wm-game]").appendChild(this.element);
   };
@@ -122,7 +122,11 @@ class GameOverScreen extends Screen {
     }, 600);
   };
 
-  keydownListener = () => {
+  keydownListener = (command) => {
+    const keyPressed = command.key;
+
+    if (keyPressed !== " ") return;
+
     this.next();
   };
 }
