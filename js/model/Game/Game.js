@@ -105,3 +105,35 @@ class Game {
     });
   };
 }
+
+const wallCollision = (tile) => {
+  tile.element.classList.add("blink");
+  game.player.die();
+};
+
+const foodCollision = (tile) => {
+  game.player.eat();
+  tile.removeFood();
+};
+
+const pointCollision = (tile) => {
+  game.player.pickUpCoin();
+  tile.removePoint();
+};
+
+function detectCollisions() {
+  game.controlls.detectCollisions((tile) => {
+    if (tile.isWall) return wallCollision(tile);
+    if (tile.hasFood) return foodCollision(tile);
+    if (tile.hasPoint) return pointCollision(tile);
+  });
+}
+
+function updateBackground() {
+  if (!game.player.isAlive()) return;
+  game.background.update();
+}
+
+function decreaseEnergy() {
+  game.player.decreaseEnergy();
+}
