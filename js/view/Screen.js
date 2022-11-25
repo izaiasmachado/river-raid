@@ -111,7 +111,7 @@ class GameOverScreen extends Screen {
 
     this.score = document.createElement("p");
     this.score.classList.add("game-over-screen__score");
-    this.score.innerText = `Pontuação: ${game.player.points}`;
+    this.score.innerText = `Pontuação Total: ${game.player.points}`;
 
     this.level = document.createElement("p");
     this.level.classList.add("game-over-screen__level");
@@ -119,14 +119,13 @@ class GameOverScreen extends Screen {
 
     this.timesAteFood = document.createElement("p");
     this.timesAteFood.classList.add("game-over-screen__times-ate-food");
-    this.timesAteFood.innerText = `Comidas: ${game.player.timesAteFood}`;
+    this.timesAteFood.innerText = `Ramens: ${game.player.timesAteFood}`;
 
-    // times picked up coin
     this.timesPickedUpCoin = document.createElement("p");
     this.timesPickedUpCoin.classList.add(
       "game-over-screen__times-picked-up-coin"
     );
-    this.timesPickedUpCoin.innerText = `Moedas: ${game.player.coinsPicked}`;
+    this.timesPickedUpCoin.innerText = `Esferas do Dragão: ${game.player.coinsPicked}`;
 
     this.statistics.appendChild(this.score);
     this.statistics.appendChild(this.level);
