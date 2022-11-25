@@ -7,6 +7,10 @@ class Background {
     this.addInitialLevels();
   }
 
+  setPastLevelCallback = (callback) => {
+    this.pastLevelCallback = callback;
+  };
+
   setLevelTileHeight = () => {
     this.levelTileHeight = this.size.height / LEVEL_TILES_IN_SCREEN;
   };
@@ -73,12 +77,16 @@ class Background {
     const bottomLevel = this.levels[0];
     bottomLevel.removeLevel((level) => {
       this.removeLevel(level);
-      callback();
+      callback(level);
     });
   };
 
   update = () => {
     this.scroll();
-    this.removeBottomLevel(this.addRandomLevel);
+
+    this.removeBottomLevel(() => {
+      this.addRandomLevel();
+      this.pastLevelCallback();
+    });
   };
 }

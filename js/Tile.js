@@ -1,9 +1,19 @@
 class Tile {
-  constructor() {
+  constructor(x, y) {
     const cell = document.createElement("div");
     cell.classList.add("cell");
     this.element = cell;
+
+    this.x = x;
+    this.y = y;
   }
+
+  getCoordinate = () => {
+    return {
+      x: this.x,
+      y: this.y,
+    };
+  };
 
   bounds = () => {
     const rectangle = this.element.getBoundingClientRect();

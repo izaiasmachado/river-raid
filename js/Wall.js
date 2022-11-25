@@ -1,13 +1,13 @@
 class Wall extends Tile {
-  constructor() {
-    super();
+  constructor(x, y) {
+    super(x, y);
     this.element.classList.add("wall");
     this.isWall = true;
     this.giveChanceAddTree();
   }
 
   giveChanceAddTree = () => {
-    if (Math.random() * 100 >= 5) return;
+    if (Math.random() * 100 >= WALL_CHANCE_ADD_TREE) return;
     this.addTree();
   };
 

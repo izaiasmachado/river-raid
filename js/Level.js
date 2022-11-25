@@ -14,6 +14,7 @@ class Level {
     this.setCoordinate(coordinate.x, coordinate.y);
     this.createLevelGrid();
     this.createWalls();
+    this.giveChanceAddPerks();
   }
 
   setMoveSpeed = (speed) => {
@@ -56,12 +57,39 @@ class Level {
     for (let row = 0; row < rows; row++) {
       for (let column = 0; column < columns; column++) {
         const isWall = this.levelPrototype[row][column] === 1;
-        const tile = isWall ? new Wall() : new Floor();
+        const tile = isWall ? new Wall(row, column) : new Floor(row, column);
         const cell = tile.element;
         this.tiles.push(tile);
         this.element.appendChild(cell);
       }
     }
+  };
+
+  isAdjacentToWall = (tile) => {
+    const adjacentTiles = this.getAdjacentTiles(tile);
+    const adjacentToWall = adjacentTiles.some((tile) => tile.isWall);
+    return adjacentToWall;
+  };
+
+  getAdjacentTiles = (tile) => {
+    const { rows, columns } = this.getRowsAndColumns();
+    const { x, y } = tile.getCoordinate();
+    const adjacentTiles = [];
+
+    const nextX = [0, 0, 1, -1, 1, 1, -1, -1];
+    const nextY = [1, -1, 0, 0, 1, -1, 1, -1];
+
+    for (let i = 0; i < 4; i++) {
+      const newX = x + nextX[i];
+      const newY = y + nextY[i];
+
+      if (newX < 0 || newX >= rows || newY < 0 || newY >= columns) continue;
+
+      const adjacentTile = this.tiles[newX * columns + newY];
+      adjacentTiles.push(adjacentTile);
+    }
+
+    return adjacentTiles;
   };
 
   moveY = (y) => {
@@ -82,6 +110,16 @@ class Level {
   removeLevel = (callback) => {
     if (-this.coordinate.y + this.moveSpeed <= this.size.height) return;
     callback(this);
+  };
+
+  giveChanceAddPerks = () => {
+    this.tiles.forEach((tile) => {
+      if (!tile.isFloor) return;
+      if (tile.hasSomething()) return;
+      if (this.isAdjacentToWall(tile)) return;
+      tile.giveChanceAddPoint();
+      tile.giveChanceAddFood();
+    });
   };
 }
 

@@ -7,6 +7,8 @@ class Game {
 
     this.setGameControlls();
     this.addScoreboard();
+
+    this.addPointAfterLevel();
   }
 
   setElement = () => {
@@ -19,7 +21,7 @@ class Game {
   };
 
   setBackground = () => {
-    this.background = new Background(800, 600);
+    this.background = new Background(BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
     this.element = document.querySelector("[wm-game]");
     this.element.appendChild(this.background.element);
   };
@@ -38,5 +40,11 @@ class Game {
     this.player.setPoints(this.player.points);
 
     this.element.appendChild(this.scoreboard.element);
+  };
+
+  addPointAfterLevel = () => {
+    this.background.setPastLevelCallback(() => {
+      this.player.increasePoints();
+    });
   };
 }
