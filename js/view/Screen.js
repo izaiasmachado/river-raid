@@ -106,8 +106,36 @@ class GameOverScreen extends Screen {
     this.h2.classList.add("game-over-screen__subtitle");
     this.h2.innerText = "Aperte espaço para jogar novamente";
 
+    this.statistics = document.createElement("div");
+    this.statistics.classList.add("game-over-screen__statistics");
+
+    this.score = document.createElement("p");
+    this.score.classList.add("game-over-screen__score");
+    this.score.innerText = `Pontuação: ${game.player.points}`;
+
+    this.level = document.createElement("p");
+    this.level.classList.add("game-over-screen__level");
+    this.level.innerText = `Nível: ${game.player.levelsBeat}`;
+
+    this.timesAteFood = document.createElement("p");
+    this.timesAteFood.classList.add("game-over-screen__times-ate-food");
+    this.timesAteFood.innerText = `Comidas: ${game.player.timesAteFood}`;
+
+    // times picked up coin
+    this.timesPickedUpCoin = document.createElement("p");
+    this.timesPickedUpCoin.classList.add(
+      "game-over-screen__times-picked-up-coin"
+    );
+    this.timesPickedUpCoin.innerText = `Moedas: ${game.player.coinsPicked}`;
+
+    this.statistics.appendChild(this.score);
+    this.statistics.appendChild(this.level);
+    this.statistics.appendChild(this.timesAteFood);
+    this.statistics.appendChild(this.timesPickedUpCoin);
+
     this.element.appendChild(this.title);
     this.element.appendChild(this.h2);
+    this.element.appendChild(this.statistics);
 
     document.querySelector("[wm-game]").appendChild(this.element);
   };

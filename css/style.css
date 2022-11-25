@@ -290,3 +290,11 @@ progress::-webkit-progress-bar {
     transform: translateY(-100%);
   }
 }
+
+.game-over-screen__statistics {
+  font-family: "VCR_OSD_MONO";
+  font-size: 2rem;
+  color: yellow;
+  text-shadow: 2px 1px 0 #fff;
+  z-index: 2;
+}

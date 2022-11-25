@@ -101,7 +101,7 @@ class Game {
 
   addPointAfterLevel = () => {
     this.background.setPastLevelCallback(() => {
-      this.player.increasePoints();
+      this.player.beatLevel();
     });
   };
 }

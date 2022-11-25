@@ -45,7 +45,7 @@ const foodCollision = (tile) => {
 };
 
 const pointCollision = (tile) => {
-  game.player.increasePoints();
+  game.player.pickUpCoin();
   tile.removePoint();
 };
 

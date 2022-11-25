@@ -3,6 +3,10 @@ class Player {
     this.alive = true;
     this.energy = PLAYER_DEFAULT_ENERGY;
     this.points = 0;
+    this.timesAteFood = 0;
+    this.timesPickedCoin = 0;
+    this.levelsBeat = 0;
+    this.coinsPicked = 0;
 
     this.createElement();
     this.setCoordinate(x, y);
@@ -74,6 +78,7 @@ class Player {
   };
 
   eat = () => {
+    this.timesAteFood++;
     this.setEnergy(this.energy + PLAYER_ENERGY_GAIN);
   };
 
@@ -83,13 +88,19 @@ class Player {
   };
 
   setPoints = (points) => {
+    if (!this.isAlive()) return;
     this.points = points;
     if (!this.pointsCallback) return;
     this.pointsCallback(this.points);
   };
 
-  increasePoints = () => {
-    if (!this.isAlive()) return;
+  pickUpCoin = () => {
+    this.coinsPicked++;
+    this.setPoints(this.points + 1);
+  };
+
+  beatLevel = () => {
+    this.levelsBeat++;
     this.setPoints(this.points + 1);
   };
 
