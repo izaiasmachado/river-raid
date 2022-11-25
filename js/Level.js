@@ -14,7 +14,7 @@ class Level {
     this.setCoordinate(coordinate.x, coordinate.y);
     this.createLevelGrid();
     this.createWalls();
-    this.giveChanceAddFood();
+    this.giveChanceAddPerks();
   }
 
   setMoveSpeed = (speed) => {
@@ -112,19 +112,14 @@ class Level {
     callback(this);
   };
 
-  addFoodTile = (tile) => {
-    if (!tile.isFloor || this.hasFood) return;
-    if (this.isAdjacentToWall(tile)) return;
-    tile.addFood(tile);
-  };
-
-  giveChanceAddFoodTile = (tile) => {
-    if (Math.random() * 100 >= FLOOR_CHANCE_ADD_FOOD) return;
-    this.addFoodTile(tile);
-  };
-
-  giveChanceAddFood = () => {
-    this.tiles.forEach(this.giveChanceAddFoodTile);
+  giveChanceAddPerks = () => {
+    this.tiles.forEach((tile) => {
+      if (!tile.isFloor) return;
+      if (tile.hasSomething()) return;
+      if (this.isAdjacentToWall(tile)) return;
+      tile.giveChanceAddPoint();
+      tile.giveChanceAddFood();
+    });
   };
 }
 

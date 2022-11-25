@@ -23,7 +23,7 @@ O projeto foi feito para a disciplina de Tecnologias Web da Universiade Federal 
 - [x] A cada segundo que passa no jogo a nave perde uma unidade de energia, caso não seja feito um abastecimento antes que o combustível acabe o jogo termina.
 - [x] Caso a nave encoste em algum obstáculo o jogo também termina.
 - [x] A cada sequência de obstáculo vencido a nave ganha pontos.
-- [ ] A nave poderá pegar ao longo do jogo elementos. Esses elementos devem acrescentar pontos extras à nave.
+- [x] A nave poderá pegar ao longo do jogo elementos. Esses elementos devem acrescentar pontos extras à nave.
 - [ ] No término do jogo deverá ser apresentada a pontuação final do jogador e quantas vezes o posto de combustível foi utilizado.
 
 ## Paleta de Cores

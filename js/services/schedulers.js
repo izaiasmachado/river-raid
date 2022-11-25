@@ -51,10 +51,16 @@ const foodCollision = (tile) => {
   tile.removeFood();
 };
 
+const pointCollision = (tile) => {
+  game.player.increasePoints();
+  tile.removePoint();
+};
+
 function detectCollisions() {
   game.controlls.detectCollisions((tile) => {
     if (tile.isWall) return wallCollision(tile);
     if (tile.hasFood) return foodCollision(tile);
+    if (tile.hasPoint) return pointCollision(tile);
   });
 }
 
