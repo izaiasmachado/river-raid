@@ -7,10 +7,12 @@ class Game {
     this.setBackground();
 
     this.addScoreboard();
+    this.addPointAfterLevel();
+
+    this.setGameControlls();
+    this.setCollisionDetector();
 
     this.setSchedulers();
-    this.addPointAfterLevel();
-    this.setGameControlls();
   }
 
   start = () => {
@@ -21,9 +23,13 @@ class Game {
 
   reset = () => {
     this.over = false;
+
     this.resetPlayer();
     this.resetBackground();
+
+    this.setCollisionDetector();
     this.resetSchedulers();
+
     this.resetScoreboard();
     this.setGameControlls();
   };
@@ -71,7 +77,10 @@ class Game {
 
   setSchedulers = () => {
     this.schedulers = new SchedulerManager();
-    this.schedulers.add(detectCollisions, DETECT_COLLISIONS_DELAY_MS);
+    this.schedulers.add(
+      this.collisionDetector.detect,
+      DETECT_COLLISIONS_DELAY_MS
+    );
     this.schedulers.add(updateBackground, UPDATE_BACKGROUND_DELAY_MS);
     this.schedulers.add(decreaseEnergy, DECREASE_ENERGY_DELAY_MS);
   };
@@ -104,29 +113,13 @@ class Game {
       this.player.beatLevel();
     });
   };
-}
 
-const wallCollision = (tile) => {
-  tile.element.classList.add("blink");
-  game.player.die();
-};
-
-const foodCollision = (tile) => {
-  game.player.eat();
-  tile.removeFood();
-};
-
-const pointCollision = (tile) => {
-  game.player.pickUpCoin();
-  tile.removePoint();
-};
-
-function detectCollisions() {
-  game.controlls.detectCollisions((tile) => {
-    if (tile.isWall) return wallCollision(tile);
-    if (tile.hasFood) return foodCollision(tile);
-    if (tile.hasPoint) return pointCollision(tile);
-  });
+  setCollisionDetector = () => {
+    this.collisionDetector = new CollisionDetector(
+      this.player,
+      this.background
+    );
+  };
 }
 
 function updateBackground() {

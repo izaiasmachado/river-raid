@@ -36,17 +36,6 @@ class GameControlls {
     return { x: nextX, y: nextY };
   };
 
-  detectCollisions = (callback) => {
-    const level = this.background.levels[0];
-    const tiles = level.tiles;
-
-    tiles.forEach((tile) => {
-      if (!tile.isColliding(this.player)) return;
-
-      callback(tile);
-    });
-  };
-
   setPlayerInitialCoordinate() {
     const { width: playerWidth, height: playerHeight } = this.player.size;
     const { width: backgroundWidth, height: backgroundHeight } =

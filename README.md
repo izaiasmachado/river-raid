@@ -36,3 +36,14 @@ O projeto foi feito para a disciplina de Tecnologias Web da Universiade Federal 
 | Bege       | `#FFD7C1` | ![Cinza](https://dummyimage.com/20x20/FFD7C1/000000.png&text=+)                       |
 | Azul       | `#072083` | ![Vermelho](https://dummyimage.com/20x20/072083/000000.png&text=+)                    |
 | Laranja    | `#F85B1A` | ![Branco](https://dummyimage.com/20x20/F85B1A/000000.png&text=+)                      |
+
+## Entidades
+
+As seguintes imagens representam as entidades do jogo:
+
+| Elemento         | Imagem                                                |
+| ---------------- | ----------------------------------------------------- |
+| Goku             | <img src="./img/goku.gif" width="100px"></img>        |
+| Ramen            | <img src="./img/ramen.png" width="100px"></img>       |
+| Esfera do Dragão | <img src="./img/dragon-ball.png" width="100px"></img> |
+| Árvore Morta     | <img src="./img/dead-tree.png" width="100px"></img>   |
