@@ -1,17 +1,10 @@
 class Floor extends Tile {
-  constructor() {
-    super();
+  constructor(x, y) {
+    super(x, y);
     this.element.classList.add("floor");
     this.isFloor = true;
     this.hasFood = false;
-
-    this.giveChanceAddFood();
   }
-
-  giveChanceAddFood = () => {
-    if (Math.random() * 100 >= FLOOR_CHANCE_ADD_FOOD) return;
-    this.addFood();
-  };
 
   addFood = () => {
     this.hasFood = true;

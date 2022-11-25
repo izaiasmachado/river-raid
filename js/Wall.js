@@ -1,6 +1,6 @@
 class Wall extends Tile {
-  constructor() {
-    super();
+  constructor(x, y) {
+    super(x, y);
     this.element.classList.add("wall");
     this.isWall = true;
     this.giveChanceAddTree();
