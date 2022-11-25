@@ -9,7 +9,7 @@
             <img src="https://img.shields.io/badge/License-MIT-yellow.svg"></img>
         </a>
     </p>
-    <p align="left">Essa é uma releitura de um jogo de Atari tem como tema o mundo Dragon Ball.</p>
+    <p align="left">Essa releitura do jogo River Raid do Atari tem como tema o mundo de Dragon Ball.</p>
 </div>
 
 ## Como jogar?
@@ -22,7 +22,7 @@ A barra laranja representa a energia do Goku e em amarelo a pontuação. Para ga
 
 ## Sobre o projeto
 
-O projeto foi feito para a disciplina de Tecnologias Web da Universiade Federal do Ceará. O roteiro do projeto pode ser encontrado [neste link](./docs/roteiro.md).
+O projeto foi feito para a disciplina de Tecnologias Web da Universidade Federal do Ceará. O roteiro do projeto pode ser encontrado [neste link](./docs/roteiro.md).
 
 ## Paleta de Cores
 
