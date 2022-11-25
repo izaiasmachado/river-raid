@@ -10,23 +10,56 @@
   <body>
     <div class="container">
       <div wm-game></div>
+
+      <div class="footer-container">
+        <div class="footer">
+          <div class="footer-links">
+            <div class="footer-link">
+              <a
+                href="https://github.com/izaiasmachado/river-raid"
+                target="_blank"
+                >GitHub</a
+              >
+            </div>
+
+            <div class="footer-link">
+              <a
+                href="https://www.linkedin.com/in/izaiasmachado/"
+                target="_blank"
+                >LinkedIn</a
+              >
+            </div>
+          </div>
+
+          <div class="footer-copyright"></div>
+        </div>
+      </div>
     </div>
 
     <script src="js/utils/constants.js"></script>
-    <script src="js/Player.js"></script>
-    <script src="js/Level.js"></script>
-    <script src="js/Background.js"></script>
-    <script src="js/Game.js"></script>
-    <script src="js/LevelStyles.js"></script>
-    <script src="js/GlobalEventListener.js"></script>
-    <script src="js/Tile.js"></script>
-    <script src="js/Wall.js"></script>
-    <script src="js/Floor.js"></script>
-    <script src="js/GameControlls.js"></script>
-    <script src="js/Scoreboard.js"></script>
-    <script src="js/services/listeners.js"></script>
-    <script src="js/services/schedulers.js"></script>
+    <script src="js/model/Player/Player.js"></script>
+
+    <script src="js/model/Background/Tile.js"></script>
+    <script src="js/model/Background/Wall.js"></script>
+    <script src="js/model/Background/Floor.js"></script>
+
+    <script src="js/model/Background/LevelStyles.js"></script>
+    <script src="js/model/Background/Level.js"></script>
+    <script src="js/model/Background/Background.js"></script>
+
+    <script src="js/model/Game/Game.js"></script>
+    <script src="js/model/Game/GameControlls.js"></script>
+    <script src="js/model/Game/CollisionDetector.js"></script>
+    <script src="js/model/Game/Scoreboard.js"></script>
+
+    <script src="js/services/Scheduler.js"></script>
+    <script src="js/services/SchedulerManager.js"></script>
+
     <script src="js/view/Screen.js"></script>
+    <script src="js/view/GameOverScreen.js"></script>
+    <script src="js/view/GameScreen.js"></script>
+    <script src="js/view/InitialScreen.js"></script>
+
     <script src="js/script.js"></script>
   </body>
 </html>

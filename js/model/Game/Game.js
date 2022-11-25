@@ -7,10 +7,12 @@ class Game {
     this.setBackground();
 
     this.addScoreboard();
+    this.addPointAfterLevel();
+
+    this.setGameControlls();
+    this.setCollisionDetector();
 
     this.setSchedulers();
-    this.addPointAfterLevel();
-    this.setGameControlls();
   }
 
   start = () => {
@@ -21,9 +23,13 @@ class Game {
 
   reset = () => {
     this.over = false;
+
     this.resetPlayer();
     this.resetBackground();
+
+    this.setCollisionDetector();
     this.resetSchedulers();
+
     this.resetScoreboard();
     this.setGameControlls();
   };
@@ -71,7 +77,10 @@ class Game {
 
   setSchedulers = () => {
     this.schedulers = new SchedulerManager();
-    this.schedulers.add(detectCollisions, DETECT_COLLISIONS_DELAY_MS);
+    this.schedulers.add(
+      this.collisionDetector.detect,
+      DETECT_COLLISIONS_DELAY_MS
+    );
     this.schedulers.add(updateBackground, UPDATE_BACKGROUND_DELAY_MS);
     this.schedulers.add(decreaseEnergy, DECREASE_ENERGY_DELAY_MS);
   };
@@ -104,4 +113,20 @@ class Game {
       this.player.beatLevel();
     });
   };
+
+  setCollisionDetector = () => {
+    this.collisionDetector = new CollisionDetector(
+      this.player,
+      this.background
+    );
+  };
+}
+
+function updateBackground() {
+  if (!game.player.isAlive()) return;
+  game.background.update();
+}
+
+function decreaseEnergy() {
+  game.player.decreaseEnergy();
 }

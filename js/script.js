@@ -13,3 +13,6 @@ async function startGame() {
 }
 
 startGame();
+
+const copyright = document.querySelector(".footer-copyright");
+copyright.innerHTML = `Copyright © ${new Date().getFullYear()} - Izaias Machado`;
