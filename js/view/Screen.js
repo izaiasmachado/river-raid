@@ -119,7 +119,7 @@ class GameOverScreen extends Screen {
     setTimeout(() => {
       document.querySelector("[wm-game]").removeChild(this.element);
       this.callback(new GameScreen(this));
-    }, 1500);
+    }, 600);
   };
 
   keydownListener = () => {
