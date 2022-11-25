@@ -24,7 +24,7 @@ O projeto foi feito para a disciplina de Tecnologias Web da Universiade Federal 
 - [x] Caso a nave encoste em algum obstáculo o jogo também termina.
 - [x] A cada sequência de obstáculo vencido a nave ganha pontos.
 - [x] A nave poderá pegar ao longo do jogo elementos. Esses elementos devem acrescentar pontos extras à nave.
-- [ ] No término do jogo deverá ser apresentada a pontuação final do jogador e quantas vezes o posto de combustível foi utilizado.
+- [x] No término do jogo deverá ser apresentada a pontuação final do jogador e quantas vezes o posto de combustível foi utilizado.
 
 ## Paleta de Cores
 

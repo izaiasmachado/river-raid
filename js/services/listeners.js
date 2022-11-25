@@ -1,35 +1,21 @@
-const keydownListener = (command) => {
-  const keydownActions = {
-    a: () => game.controlls.movePlayerLeft(),
-    d: () => game.controlls.movePlayerRight(),
-    ArrowLeft: () => game.controlls.movePlayerLeft(),
-    ArrowRight: () => game.controlls.movePlayerRight(),
-  };
+// const createListeners = () => {
+//   const listener = new GlobalEventListener();
+//   const listenerFunctions = {
+//     keydown: keydownListener,
+//   };
 
-  const action = keydownActions[command.keyPressed];
-  if (action === undefined) return;
+//   const listenerTypes = Object.keys(listenerFunctions);
 
-  action();
-};
+//   listenerTypes.forEach((listenerType) => {
+//     const listenerFunction = listenerFunctions[listenerType];
 
-const createListeners = () => {
-  const listener = new GlobalEventListener();
-  const listenerFunctions = {
-    keydown: keydownListener,
-  };
+//     listener.subscribe({
+//       notify: (command) => {
+//         if (command.type !== listenerType) return;
+//         listenerFunction(command);
+//       },
+//     });
+//   });
+// };
 
-  const listenerTypes = Object.keys(listenerFunctions);
-
-  listenerTypes.forEach((listenerType) => {
-    const listenerFunction = listenerFunctions[listenerType];
-
-    listener.subscribe({
-      notify: (command) => {
-        if (command.type !== listenerType) return;
-        listenerFunction(command);
-      },
-    });
-  });
-};
-
-createListeners();
+// createListeners();

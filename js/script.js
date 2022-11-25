@@ -1,14 +1,15 @@
 const game = new Game();
 
-const handleKeydown = (event) => {
-  const listener = new GlobalEventListener();
-  const keyPressed = event.key;
-  const command = {
-    type: "keydown",
-    keyPressed,
-  };
+async function startGame() {
+  let nextScreen = new InitialScreen();
 
-  listener.notifyAll(command);
-};
+  while (true) {
+    const nextScreenPromise = new Promise((resolve) => {
+      nextScreen.setCallback(resolve);
+    });
 
-document.addEventListener("keydown", handleKeydown);
+    nextScreen = await nextScreenPromise;
+  }
+}
+
+startGame();

@@ -34,13 +34,6 @@ class SchedulerManager {
   };
 }
 
-const schedulers = new SchedulerManager();
-schedulers.add(detectCollisions, DETECT_COLLISIONS_DELAY_MS);
-schedulers.add(updateBackground, UPDATE_BACKGROUND_DELAY_MS);
-schedulers.add(isPlayerAlive, VERIFY_PLAYER_ALIVE_DELAY_MS);
-schedulers.add(decreaseEnergy, DECREASE_ENERGY_DELAY_MS);
-schedulers.start();
-
 const wallCollision = (tile) => {
   tile.element.classList.add("blink");
   game.player.die();
@@ -52,7 +45,7 @@ const foodCollision = (tile) => {
 };
 
 const pointCollision = (tile) => {
-  game.player.increasePoints();
+  game.player.pickUpCoin();
   tile.removePoint();
 };
 
@@ -67,12 +60,6 @@ function detectCollisions() {
 function updateBackground() {
   if (!game.player.isAlive()) return;
   game.background.update();
-}
-
-function isPlayerAlive() {
-  if (!game.player.isAlive()) {
-    schedulers.stop();
-  }
 }
 
 function decreaseEnergy() {
