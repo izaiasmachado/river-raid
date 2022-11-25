@@ -8,8 +8,6 @@
 * {
   margin: 0;
   padding: 0;
-  width: 100vw;
-  height: 100vh;
   --gray: #8a9294;
   --black: #252525;
   --magenta: #e59982;
@@ -25,6 +23,8 @@ body {
 }
 
 .container {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -195,4 +195,65 @@ progress::-webkit-progress-bar {
     opacity: 0.8;
     filter: hue-rotate(40deg);
   }
+}
+
+.initial-screen {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+  gap: 1rem;
+}
+
+.initial-screen__title {
+  font-size: 4.5rem;
+  color: var(--orange);
+  font-family: "VCR_OSD_MONO";
+  text-shadow: 3px 2px 0 #fff;
+  text-align: center;
+}
+
+.initial-screen__subtitle {
+  font-size: 2rem;
+  color: var(--gray);
+  font-family: "VCR_OSD_MONO";
+  text-shadow: 1px 1px 0 #fff;
+  text-align: center;
+}
+
+.initial-screen__animation {
+  transform: translateY(-100%);
+  transition: transform 1s ease-in-out 0.5s;
+}
+
+.game-over-screen {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+  gap: 1rem;
+}
+
+.game-over-screen__title {
+  font-size: 4.5rem;
+  color: var(--orange);
+  font-family: "VCR_OSD_MONO";
+  text-shadow: 3px 2px 0 #fff;
+  text-align: center;
+  z-index: 2;
+}
+
+.game-over-screen__animation {
+  transform: translateY(-100%);
+  transition: transform 1s ease-in-out 0.5s;
 }

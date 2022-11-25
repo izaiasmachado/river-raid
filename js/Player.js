@@ -9,6 +9,10 @@ class Player {
     this.setSize({ width: 60, height: 60 });
   }
 
+  setDiedCallback = (callback) => {
+    this.diedCallback = callback;
+  };
+
   createElement = () => {
     const element = document.createElement("div");
     element.classList.add("player");
@@ -43,6 +47,7 @@ class Player {
   die = () => {
     this.alive = false;
     this.element.classList.add("blink");
+    this.diedCallback();
   };
 
   setEnergyCallback = (callback) => {
